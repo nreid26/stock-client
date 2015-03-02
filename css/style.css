@@ -1,0 +1,112 @@
+/* Put your CSS here */
+* {
+    transition: all 0.2s ease;
+}
+
+body {
+    background: #AFCD96;
+}
+
+input {
+    outline: none;
+}
+input[type="number"] {
+    text-align: right;
+}
+
+
+.ember-application {
+    margin: 20px;
+}
+
+.course_logo {
+    display: block;
+    margin: 0 auto;
+    height: 200px;
+    border: solid black 2px;
+}
+
+.company_logo {
+    max-width: 200px;
+    max-height: 100px;
+    padding: 10px;
+    margin-top: 10px;
+    background: white;
+    border-radius: 5px;
+}
+
+.market_table { 
+    margin-top: 10px;
+    overflow: hidden;
+    border-radius: 5px;
+
+    background: linear-gradient(to right, white, #AFCD96);
+}
+.market_table thead tr {
+    background: #3C720A;
+    color: white;
+}
+.market_table td { padding: 10px; }
+.market_table thead tr:last-of-type { border-bottom: solid black 1px; }
+.market_table thead td {
+     border-right: solid black 1px;
+     white-space: nowrap;
+}
+.market_table thead tr td:last-of-type { border-right: none; }
+.market_table tbody tr:nth-of-type(2n+1) { background: white; }
+.market_table tbody tr:nth-of-type(2n) { background: #AFCD96; }
+.market_table tbody tr:hover { background: none; }
+
+.highlight_div,
+.nav_bar {
+    background: #3C720A;
+
+    font-weight: bold;
+    color: white;
+
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.nav_bar { 
+    text-align: left; 
+    margin-top: 20px;
+}
+.nav_bar > div {
+    margin-right: 10px;
+    padding-right: 10px;
+    border-right: solid black 1px;
+    display: inline-block;
+}
+.nav_bar > div:hover { color: #AFCD96; }
+.nav_bar > div:last-of-type { 
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.market_div {
+    text-align: center;
+    margin: 20px 20px 0 0;
+
+    display: inline-block;
+    vertical-align: top;
+}
+
+.input_divider {
+    height: 0px;
+    border: none;
+}
+
+.valid { border: solid lime 2px; }
+.error, 
+.error_msg {
+     border: solid red 2px;
+}
+.error_msg {
+    text-align: center;
+    background: white;
+    color: red;
+    padding: 10px;
+    font-weight: bold;
+}
