@@ -1,0 +1,28 @@
+﻿<div class="market_div">
+    Market By Order
+
+    <table class="market_table">
+        <thead>
+            <tr>
+                <td colspan="2">Buy</td>
+                <td colspan="2">Sell</td>
+            </tr>
+            <tr>
+                <td>Volume</td>
+                <td>Price ($)</td>
+                <td>Price ($)</td>
+                <td>Volume</td>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each row in orderRows}}
+            <tr>
+                <td>{{num row.buy.volume 0}}</td>
+                <td>{{num row.buy.price 2}}</td>
+                <td>{{num row.sell.price 2}}</td>
+                <td>{{num row.sell.volume 0}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

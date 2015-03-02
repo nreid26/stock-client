@@ -1,0 +1,32 @@
+﻿<div class="market_div">
+    Market By Price
+
+    <table class="market_table">
+        <thead>
+            <tr>
+                <td colspan="3">Buy</td>
+                <td colspan="3">Sell</td>
+            </tr>
+            <tr>
+                <td>#</td>
+                <td>Volume</td>
+                <td>Price ($)</td>
+                <td>Price ($)</td>
+                <td>Volume</td>
+                <td>#</td>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each row in priceRows}}
+            <tr>
+                <td>{{num row.buy.count 0}}</td>
+                <td>{{num row.buy.volume 0}}</td>
+                <td>{{num row.buy.price 2}}</td>
+                <td>{{num row.sell.price 2}}</td>
+                <td>{{num row.sell.volume 0}}</td>
+                <td>{{num row.sell.count 0}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
