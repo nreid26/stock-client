@@ -1,0 +1,4 @@
+#Ignore Visual Studio Project files
+*.csproj
+*.sln
+*.suo

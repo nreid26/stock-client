@@ -58,7 +58,7 @@ input[type="number"] {
 .market_table tbody tr:hover { background: none; }
 
 .highlight_div,
-.nav_bar {
+.filter_bar {
     background: #3C720A;
 
     font-weight: bold;
@@ -66,20 +66,22 @@ input[type="number"] {
 
     padding: 10px;
     border-radius: 5px;
+
+    display: inline-block;
 }
 
-.nav_bar { 
+.filter_bar { 
     text-align: left; 
     margin-top: 20px;
 }
-.nav_bar > div {
+.filter_bar > div {
     margin-right: 10px;
     padding-right: 10px;
     border-right: solid black 1px;
     display: inline-block;
 }
-.nav_bar > div:hover { color: #AFCD96; }
-.nav_bar > div:last-of-type { 
+.filter_bar > div:hover { color: #AFCD96; }
+.filter_bar > div:last-of-type { 
     border: none;
     margin: 0;
     padding: 0;

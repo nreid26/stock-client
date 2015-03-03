@@ -1,21 +1,12 @@
-var links = $('link[rel="external"]'),
-    done  = 0;
-
-links.each(function() {
+$('link[rel="external"]').each(function() {
     $.ajax({
         url: this.href,
         type: 'GET',
         context: this,
-        dataType: 'html',
+        async: false,
+        dataType: 'text',
         success: function(data) {
             Em.TEMPLATES[this.id] = Em.Handlebars.compile(data);
-            if(++done == links.length) { 
-                $('body').append(
-                    '<script src="js/helpers.js"></script>' +
-                    '<script src="js/extern.js"></script>' +
-                    '<script src="js/app.js"></script>'
-                );
-            }
         }
     });
 });

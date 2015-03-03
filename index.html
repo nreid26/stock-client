@@ -11,17 +11,55 @@
 
     <body>
         <!--Library Scripts-->
-        <script src="js/libs/vendor/jquery.js"></script>
-        <script src="js/libs/ember-template-compiler-1.10.0.js"></script>
-        <script src="js/libs/ember-1.10.0.debug.js"></script>
+        <script src="libs/vendor/jquery.js"></script>
+        <script src="libs/ember-template-compiler-1.10.0.js"></script>
+        <script src="libs/ember-1.10.0.debug.js"></script>
 
-        <link rel="external" id="application" href="templates/application.hbs">
-        <link rel="external" id="error" href="templates/error.hbs">
-        <link rel="external" id="market" href="templates/market.hbs">
-        <link rel="external" id="market/company" href="templates/market/company.hbs">
-        <link rel="external" id="order" href="templates/order.hbs">
+        <!--Init-->
+        <script src="router.js"></script>
+        <script src="helpers.js"></script>
+        <script src="extern.js"></script>
 
-        <!--Loader-->
+        <div>
+            <!--Application-->
+            <link rel="external" id="application" href="templates/application.htm">
+            <script src="routes/application.js"></script>
+            <script src="controllers/application.js"></script>
+            <div>
+                <!--Company Index-->
+                <script src="routes/company.js"></script>
+                <script src="routes/company/company-child.js"></script>
+                <div>
+                    <!--Order-->
+                    <link rel="external" id="company/order" href="templates/company/order.htm">
+                    <script src="routes/company/order.js"></script>
+                    <script src="controllers/company/order.js"></script>
+
+                    <!--Market-->
+                    <link rel="external" id="company/market" href="templates/company/order.htm">
+                    <script src="routes/company/market.js"></script>
+                    <script src="controllers/company/market.js"></script>
+                    <div>
+                        <!--Depth by Order-->
+                        <link rel="external" id="depth-by-order" href="templates/company/market/depth-by-order.htm">
+
+                        <!--Depth by Price-->
+                        <link rel="external" id="depth-by-price" href="templates/company/market/depth-by-price.htm">
+                    </div>
+                </div>
+            </div>
+
+            <!--Error-->
+            <link rel="external" id="error" href="templates/error.htm">
+
+            <!--Index-->
+            <script src="routes/index.js"></script>
+
+            <!--Catch All-->
+            <script src="routes/all.js"></script>
+        </div>
+
+        <!--Template Loader-->
         <script type="text/javascript" src="loader.js"></script>
     </body>
 </html>

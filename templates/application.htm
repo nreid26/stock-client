@@ -1,5 +1,56 @@
 <img src="images/course_logo.png" class="course_logo" />
 
-<div style="text-align:center">
-    <div style="display:inline">{{outlet}}</div>
+<div style="display: table-cell">
+    <div>
+        <div class="filter_bar">
+            <div {{action "resort" "volume:desc"}}>Volume</div>
+            <div {{action "resort" "delta.value:asc"}}>Losers</div>
+            <div {{action "resort" "delta.value:desc"}}>Gainers</div>
+        </div>
+        <br />
+        <div class="market_div">
+            <table class="market_table">
+                <thead>
+                    <tr>
+                        <td colspan="4"></td>
+                        <td colspan="3">Change</td>
+                        <td colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td>Symbol</td>
+                        <td>Open ($)</td>
+                        <td>Current ($)</td>
+                        <td>Value ($)</td>
+                        <td></td>
+                        <td>Percent</td>
+                        <td>Volume</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each company in sortedView}}
+                    {{#link-to "company.market" company.symbol tagName="tr"}}
+                    <td>{{company.name}}</td>
+                    <td>{{company.symbol}}</td>
+                    <td>{{num company.openPrice 2}}</td>
+                    <td>{{num company.currentPrice 2}}</td>
+                    <td>{{num company.delta.value 2}}</td>
+                    <td><img {{bind-attr src=company.delta.image}} /></td>
+                    <td>{{num company.delta.percent 2}}</td>
+                    <td>{{num company.volume 0}}</td>
+                    <td>
+                        {{#link-to "company.order" company.symbol (query-params type="buy") tagName="button"}}Buy{{/link-to}}
+                        {{#link-to "company.order" company.symbol (query-params type="sell") tagName="button"}}Sell{{/link-to}}
+                    </td>
+                    {{/link-to}}
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr />
+
+    {{outlet}}
+
 </div>
