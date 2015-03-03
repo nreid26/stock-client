@@ -1,3 +1,14 @@
+App = Em.Application.create();
+
+App.Router.map(function() {
+    this.resource('company', {path: '/:symbol'}, function() {
+        this.route('order');
+        this.route('market');
+    });
+
+    this.route('all', {path: '*path'});
+});
+
 var Ex = {
     InputModel: Em.Object.extend({
             pattern: /.*/,
@@ -34,8 +45,17 @@ var Ex = {
             this.set('totalVolume', this.get('volume'));
         }
     }),
+
+    Route: Em.Route
 };
 
+
+//All uninplemented routers now redirect to client
+Em.Router = Em.Router.extend({
+    redirect: function() {
+        this.transitionTo('application.company');
+    }
+});
 
 var market = [{ //Temporary model data
     symbol: 'MSFT',
@@ -67,5 +87,3 @@ var market = [{ //Temporary model data
 for(var i = 0; i < market.length; i++) {
     market[i] = Ex.Company.create(market[i]);
 }
-
-

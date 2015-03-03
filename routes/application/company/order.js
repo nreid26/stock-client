@@ -1,4 +1,8 @@
-App.CompanyOrderRoute = Ex.CompanyChildRoute.extend({
+App.CompanyOrderRoute = Ex.Route.extend({
+    model: function() {
+        return this.modelFor('company');
+    },
+
     setupController: function(controller, model) {
         this._super();
 

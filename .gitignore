@@ -2,3 +2,5 @@
 *.csproj
 *.sln
 *.suo
+obj/
+bin/
