@@ -78,12 +78,14 @@ input[type="number"] {
 .filter_bar { 
     text-align: left; 
     margin-top: 20px;
+    font-size: 0px;
 }
 .filter_bar > span {
     margin-right: 10px;
     padding-right: 10px;
     border-right: solid black 1px;
     display: inline-block;
+    font-size: 16px;
 }
 .filter_bar > span:hover { color: #AFCD96; }
 .filter_bar > span:last-of-type { 
