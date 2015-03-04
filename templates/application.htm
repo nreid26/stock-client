@@ -32,7 +32,7 @@
                     </thead>
                     <tbody>
                         {{#each company in sortedView}}
-                        {{#link-to "company.market" company.symbol tagName="tr"}}
+                        {{#link-to "company.market" company.symbol tagName="tr" href=false}}
                             <td>{{company.name}}</td>
                             <td>{{company.symbol}}</td>
                             <td>{{num company.openPrice 2}}</td>
@@ -40,10 +40,14 @@
                             <td>{{num company.delta.value 2}}</td>
                             <td><img {{bind-attr src=company.delta.image}} /></td>
                             <td>{{num company.delta.percent 2}}</td>
-                            <td>{{num company.volume 0}}</td>
+                            <td>{{num company.volume 0}}</td>    
                             <td>
-                                {{#link-to "company.order" company.symbol (query-params type="buy") tagName="button"}}Buy{{/link-to}}
-                                {{#link-to "company.order" company.symbol (query-params type="sell") tagName="button"}}Sell{{/link-to}}
+                                <button {{action "placeOrder" company "buy" bubbles=false }}>
+                                    Buy
+                                </button>
+                                <button {{action "placeOrder" company "sell" bubbles=false }}>
+                                    Sell
+                                </button>
                             </td>
                         {{/link-to}}
                         {{/each}}

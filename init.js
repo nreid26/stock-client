@@ -45,17 +45,10 @@ var Ex = {
             this.set('totalVolume', this.get('volume'));
         }
     }),
-
-    Route: Em.Route
 };
 
 
 //All uninplemented routers now redirect to client
-Em.Router = Em.Router.extend({
-    redirect: function() {
-        this.transitionTo('application.company');
-    }
-});
 
 var market = [{ //Temporary model data
     symbol: 'MSFT',

@@ -15,12 +15,12 @@
         Price:  {{input type="number" value=priceInput.value  placeholder="price"  classBinding="priceInput.isValid:valid:error"}}
         <hr class="input_divider" />
         <button {{action "placeOrder" }}>Order</button>
-        {{#link-to 'market.company' symbol tagName="button"}}Cancel{{/link-to}}
+        {{#link-to 'company.market' symbol tagName="button"}}Cancel{{/link-to}}
     </div>
 </div>
 
 <div class="market_div">
-    Symobl
+    Symbol
     <br />
     <img {{bind-attr src=logo}} class="company_logo" />
 </div>

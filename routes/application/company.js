@@ -1,4 +1,4 @@
-App.CompanyRoute = Ex.Route.extend({
+App.CompanyRoute = Em.Route.extend({
     model: function(params) {
         var m = this.modelFor('application').filterBy('symbol', params.symbol)[0];
         if(m) { return m; }
@@ -6,6 +6,6 @@ App.CompanyRoute = Ex.Route.extend({
     },
 
     redirect: function(model) {
-        this.transitionTo('/' + model.symbol + '/market');
+        //this.transitionTo('/' + model.symbol + '/market');
     }
 });
