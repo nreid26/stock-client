@@ -1,4 +1,4 @@
-﻿App.CompanyController = Em.ObjectController.extend({ 
+﻿App.CompanyMarketController = Em.ObjectController.extend({ 
     orderRows: function() {
         var orders = this.get('orders'),
             ret = [],

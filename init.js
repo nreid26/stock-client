@@ -1,9 +1,11 @@
 App = Em.Application.create();
 
 App.Router.map(function() {
-    this.resource('company', {path: '/:symbol'}, function() {
-        this.route('order');
-        this.route('market');
+    this.resource('exchange', function() {
+        this.resource('company', {path: '/:symbol'}, function() {
+            this.route('order');
+            this.route('market');
+        });
     });
 
     this.route('all', {path: '*path'});
@@ -38,17 +40,18 @@ var Ex = {
         price: 0,
         volume: 0,
         totalVolume: 0,
+        time: null,
 
         init: function() {
             this._super();
 
-            this.set('totalVolume', this.get('volume'));
+            this.setProperties({
+                totalVolume: this.get('volume'),
+                time: Date.now()
+            });
         }
     }),
 };
-
-
-//All uninplemented routers now redirect to client
 
 var market = [{ //Temporary model data
     symbol: 'MSFT',

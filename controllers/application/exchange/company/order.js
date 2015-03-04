@@ -19,12 +19,16 @@
             //Insert new order and sort model
             var orders = this.get('orders.' + type);
             orders.pushObject(Ex.Order.create(
-                {price: this.get('priceInput.value'), volume: this.get('volumeInput.value')}
+                {price: Number(this.get('priceInput.value')), volume: Number(this.get('volumeInput.value'))}
             ));
-            orders.sort((type == 'buy') ?
-                function(a, b) { return a.price - b.price; } :
-                function(a, b) { return b.price - a.price; }
-            );
+            orders.sort(function(a, b) {
+                if(a.price == b.price) {
+                    return a.time - b.time;
+                }
+                else {
+                    return (a.price - b.price) * (type == 'buy' ? 1 : -1); 
+                }
+            });
 
             //Evaluate trades
             orders = this.get('orders');

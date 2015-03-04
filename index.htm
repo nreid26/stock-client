@@ -19,33 +19,35 @@
         <script src="init.js"></script>
         <script src="helpers.js"></script>
 
+        <!--Application-->
+        <link rel="external" id="application" href="templates/application.htm">
         <div>
-            <!--Application-->
-            <link rel="external" id="application" href="templates/application.htm">
-            <script src="routes/application.js"></script>
-            <script src="controllers/application.js"></script>
+            <!--Exchange-->
+            <link rel="external" id="exchange" href="templates/application/exchange.htm">
+            <script src="routes/application/exchange.js"></script>
+            <script src="controllers/application/exchange.js"></script>
             <div>
                 <!--Company-->
-                <script src="routes/application/company.js"></script>
+                <script src="routes/application/exchange/company.js"></script>
                 <div>
                     <!--Order-->
-                    <link rel="external" id="company/order" href="templates/application/company/order.htm">
-                    <script src="routes/application/company/order.js"></script>
-                    <script src="controllers/application/company/order.js"></script>
+                    <link rel="external" id="company/order" href="templates/application/exchange/company/order.htm">
+                    <script src="routes/application/exchange/company/order.js"></script>
+                    <script src="controllers/application/exchange/company/order.js"></script>
 
                     <!--Market-->
-                    <link rel="external" id="company/market" href="templates/application/company/market.htm">
-                    <script src="routes/application/company/market.js"></script>
-                    <script src="controllers/application/company/market.js"></script>
+                    <link rel="external" id="company/market" href="templates/application/exchange/company/market.htm">
+                    <script src="routes/application/exchange/company/market.js"></script>
+                    <script src="controllers/application/exchange/company/market.js"></script>
                     <div>
                         <!--Depth by Order-->
-                        <link rel="external" id="depth-by-order" href="templates/depth-by-order.htm">
+                        <link rel="external" id="depth-by-order" href="templates/parts/depth-by-order.htm">
 
                         <!--Depth by Price-->
-                        <link rel="external" id="depth-by-price" href="templates/depth-by-price.htm">
+                        <link rel="external" id="depth-by-price" href="templates/parts/depth-by-price.htm">
 
                         <!--Depth by Price-->
-                        <link rel="external" id="logo" href="templates/logo.htm">
+                        <link rel="external" id="logo" href="templates/parts/logo.htm">
                     </div>
                 </div>
             </div>
