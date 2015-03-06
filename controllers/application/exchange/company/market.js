@@ -1,11 +1,7 @@
 ﻿App.CompanyMarketController = Em.ObjectController.extend({   
-    buys: function() { return this.store.filter('buyOrder', {company: this.get('symbol')}, function() { debugger; return true; }); }.property('symbol'),
-    sells: function() { return this.store.filter('sellOrder', {company: this.get('symbol')}, function() { return true; }); }.property('symbol'),
-
     orderRows: function() {
-        debugger;
-        var buys = this.get('buys').slice().implicitSort(),
-            sells = this.get('sells').slice().implicitSort(),
+        var buys = this.get('buyOrders').toArray().sort(SORT.buyPrice),
+            sells = this.get('sellOrders').toArray().sort(SORT.sellPrice),
             nullGroup = {volume: '', price: ''},
             ret = [];
 
@@ -17,11 +13,12 @@
         }
 
         return ret.slice(0, 10);
-    }.property('buys.@each', 'sells.@each'),
+    }.property('buyOrders.@each', 'sellOrders.@each'),
 
     priceRows: function() {
-        var buys = this.get('buys').slice().implicitSort(),
-            sells = this.get('sells').slice().implicitSort();
+        debugger;
+        var buys = this.get('buyOrders').toArray(),
+            sells = this.get('sellOrders').toArray();
 
         function collect(array) {
             var ret = [],
@@ -58,5 +55,5 @@
         }
 
         return ret.slice(0, 10);
-    }.property('buys.@each', 'sells.@each')
+    }.property('buyOrders.@each', 'sellOrders.@each')
 });

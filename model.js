@@ -5,9 +5,12 @@ App.Company = DS.Model.extend({
     currentPrice: DS.attr('number', {defaultValue: 0}),
     volume: DS.attr('number', {defaultValue: 0}),
     logo: DS.attr('string'),
-
+    buyOrders: DS.hasMany('BuyOrder'),
+    sellOrders: DS.hasMany('SellOrder'),
     symbol: function() { return this.get('id'); }.property('id')
 });
+
+console.log('test');
 App.Company.FIXTURES = [{
         id: 'MSFT',
         name: 'Microsoft Corporation',
@@ -36,19 +39,18 @@ App.Company.FIXTURES = [{
     }
 ];
 
-App.Order = DS.Model.extend({
+App.BuyOrder = DS.Model.extend({
     volume: DS.attr('number'),
     price: DS.attr('number'),
     time: DS.attr('number'),
-    company: DS.attr('string'),
+    company: DS.belongsTo('Company')
+});
 
-    compare: function(a, b) { a.get('time') - b.get('time'); }
-});
-App.BuyOrder = App.Order.extend({
-    compare: function(a, b) { return (b.get('price') - a.get('price')) || this._super(); },
-});
-App.SellOrder = App.Order.extend({
-    compare: function(a, b) { return (a.get('price') - b.get('price')) || this._super(); },
+App.SellOrder = DS.Model.extend({
+    volume: DS.attr('number'),
+    price: DS.attr('number'),
+    time: DS.attr('number'),
+    company: DS.belongsTo('Company')
 });
 
 App.Transaction = DS.Model.extend({
@@ -70,3 +72,8 @@ App.OrderAdapter = DS.LSAdapter.extend({
 App.BuyOrderAdapter = App.OrderAdapter.extend();
 App.SellOrderAdapter = App.OrderAdapter.extend();
 
+var SORT = {
+    time: function(a, b) { return a.get('time') - b.get('time'); },
+    buyPrice: function(a, b) { return (b.get('price') - a.get('price')) || SORT.time(a, b); },
+    sellPrice: function(a, b) { return (a.get('price') - b.get('price')) || SORT.time(a, b); }
+}

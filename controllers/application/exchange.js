@@ -5,7 +5,7 @@ App.ExchangeController = Em.ArrayController.extend({
     filteredView: function() {
         var property = this.get('filter.property'),
             sign = this.get('filter.sign'),
-            ret = this.slice();
+            ret = this.toArray();
 
         if(sign != 0) { ret = ret.filter(function(item) { return sign * item.get(property) > 0; }); }
 

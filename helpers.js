@@ -13,10 +13,3 @@ Em.Handlebars.helper('num', function(num, dp) {
         return parts[0] + '.' + parts[1].substring(0, dp);
     }    
 });
-
-Array.prototype.implicitSort = function() {
-    if(this[0] && typeof this[0].get('compare') === 'function') {
-        this.sort(this[0].get('compare'));
-    }
-    return this;
-};

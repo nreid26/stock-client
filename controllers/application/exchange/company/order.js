@@ -6,12 +6,9 @@
     volumeInput: App.ValidatingModel.create({pattern: /^[1-9]\d*$/}),
     priceInput:  App.ValidatingModel.create({pattern: /^[1-9]\d*(\.\d{1,2})?$/}),
 
-    buys: function() { return this.store.filter('buyOrder', {company: this.get('symbol')}, function() { return true; }); }.property('symbol'),
-    sells: function() { return this.store.filter('sellOrder', {company: this.get('symbol')}, function() { return true; }); }.property('symbol'),
-
     computeSale: function() {
-        var buy = this.get('buys').slice().implicitSort()[0],
-            sell = this.get('sells').slice().implicitSort()[0];
+        var buy = this.get('buyOrders').toArray().sort(SORT.buyPrice)[0],
+            sell = this.get('sellOrders').toArray().sort(SORT.sellPrice)[0];
 
         //Evaluate trades
         if(buy && sell && buy.price >= sell.price) {
@@ -39,14 +36,17 @@
             }
 
             //Insert new order
-            this.store.push(type + 'Order', {
+            console.log(type + 'Order');
+            var order = this.store.createRecord(type + 'Order', {
                 price: Number(this.get('priceInput.value')),
                 volume: Number(this.get('volumeInput.value')),
-                company: this.get('symbol'),
-                id: 0
             });
-            debugger;
-            this.get('computeSale').call(this);
+            this.get('buyOrders');
+            order.save();
+            console.log(this.store.find(type + 'Order'));
+            this.store.find(type + 'Order',{company: this.get('symbol')}).then(function(test){console.log('test');console.log(test);});
+
+            this.computeSale();
             this.transitionToRoute('/exchange/' + this.get('symbol') + '/market');
         }
     }
