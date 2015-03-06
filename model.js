@@ -44,10 +44,10 @@ App.Order = DS.Model.extend({
 
     compare: function(a, b) { a.get('time') - b.get('time'); }
 });
-App.BuyOrder = DS.Model.extend({
+App.BuyOrder = App.Order.extend({
     compare: function(a, b) { return (b.get('price') - a.get('price')) || this._super(); },
 });
-App.SellOrder = DS.Model.extend({
+App.SellOrder = App.Order.extend({
     compare: function(a, b) { return (a.get('price') - b.get('price')) || this._super(); },
 });
 

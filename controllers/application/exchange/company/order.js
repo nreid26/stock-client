@@ -23,7 +23,7 @@
 
             for(var a in [buy, sell]) {
                 a.volume -= vDiff;
-                if(a.volume == 0) { buy.deleteRecord(); }
+                if(a.volume == 0) { a.deleteRecord(); }
                 a.save();
             }
         }
@@ -45,6 +45,7 @@
                 company: this.get('symbol'),
                 id: 0
             });
+            debugger;
             this.get('computeSale').call(this);
             this.transitionToRoute('/exchange/' + this.get('symbol') + '/market');
         }
