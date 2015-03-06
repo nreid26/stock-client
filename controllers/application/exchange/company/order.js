@@ -7,21 +7,27 @@
     priceInput:  App.ValidatingModel.create({pattern: /^[1-9]\d*(\.\d{1,2})?$/}),
 
     computeSale: function() {
-        var buy = this.get('buyOrders').toArray().sort(SORT.buyPrice)[0],
-            sell = this.get('sellOrders').toArray().sort(SORT.sellPrice)[0];
-
+        var buys = this.get('buyOrders').toArray().sort(SORT.buyPrice),
+            sells = this.get('sellOrders').toArray().sort(SORT.sellPrice);
         //Evaluate trades
-        if(buy && sell && buy.price >= sell.price) {
-            var vDiff = Math.min(buy.volume, sell.volume);
-
-            this.set('currentPrice', buy.price);
-            this.set('volume', this.get('volume') + vDiff);
-            this.get('model').save();
-
-            for(var a in [buy, sell]) {
-                a.volume -= vDiff;
-                if(a.volume == 0) { a.deleteRecord(); }
-                a.save();
+        for(var i = 0; ; i++) {
+            var buy = buys[i], sell = sells[i]
+            
+            if(buy && sell && buy.get('price') >= sell.get('price')) {
+                var vDiff = Math.min(buy.get('volume'), sell.get('volume'));
+                debugger;
+                this.set('currentPrice', buy.get('price'));
+                this.set('volume', this.get('volume') + vDiff);
+                this.get('model').save().then(function(){
+                    [buy, sell].forEach(function(a) {
+                        a.decrementProperty('volume', vDiff);
+                        if(a.get('volume') == 0) {
+                            console.log('removed this'); 
+                            a.deleteRecord();
+                        }
+                        a.save();
+                    });
+                });
             }
         }
     },
@@ -36,14 +42,13 @@
             }
 
             //Insert new order
-            console.log(type + 'Order');
             var order = this.store.createRecord(type + 'Order', {
                 price: Number(this.get('priceInput.value')),
                 volume: Number(this.get('volumeInput.value')),
+                company:this.get('model')
             });
-            this.get('buyOrders');
             order.save();
-            console.log(this.store.find(type + 'Order'));
+            this.computeSale();
             this.store.find(type + 'Order',{company: this.get('symbol')}).then(function(test){console.log('test');console.log(test);});
 
             this.computeSale();
