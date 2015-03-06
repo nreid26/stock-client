@@ -17,8 +17,8 @@ App.ExchangeController = Em.ArrayController.extend({
         filter: function(property, sign) {
             this.set('filter', Em.Object.create({property: property, sign: sign}));
         },   
-        transitionOrder: function(company,type) {
-    		this.transitionToRoute('/' + company.symbol + '/order?type=' + type);
+        transitionOrder: function(company, type) {
+    		this.transitionToRoute('/exchange/' + company.get('symbol') + '/order?type=' + type);
     	}
     }
 });

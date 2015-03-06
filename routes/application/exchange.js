@@ -1,5 +1,5 @@
 App.ExchangeRoute = Em.Route.extend({
     model: function() {
-        return market;
+        return this.store.find('company');
     }
 });

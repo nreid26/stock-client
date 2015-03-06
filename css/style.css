@@ -19,6 +19,7 @@ input[type="number"] {
     text-align: right;
 }
 
+#exchange { min-width: 900px; }
 
 .ember-application {
     margin: 20px;

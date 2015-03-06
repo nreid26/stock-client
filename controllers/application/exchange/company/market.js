@@ -1,21 +1,27 @@
-﻿App.CompanyMarketController = Em.ObjectController.extend({ 
-    orderRows: function() {
-        var orders = this.get('orders'),
-            ret = [],
-            nullGroup = {volume: '', price: ''};
+﻿App.CompanyMarketController = Em.ObjectController.extend({   
+    buys: function() { return this.store.filter('buyOrder', {company: this.get('symbol')}, function() { debugger; return true; }); }.property('symbol'),
+    sells: function() { return this.store.filter('sellOrder', {company: this.get('symbol')}, function() { return true; }); }.property('symbol'),
 
-        for(var i = 0; i < orders.buy.length || i < orders.sell.length; i++) {
+    orderRows: function() {
+        debugger;
+        var buys = this.get('buys').slice().implicitSort(),
+            sells = this.get('sells').slice().implicitSort(),
+            nullGroup = {volume: '', price: ''},
+            ret = [];
+
+        for(var i = 0; i < buys.length || i < sells.length; i++) {
             ret.push({
-                buy: orders.buy[i] || nullGroup,
-                sell: orders.sell[i] || nullGroup
+                buy: buys[i] || nullGroup,
+                sell: sells[i] || nullGroup
             });
         }
 
         return ret.slice(0, 10);
-    }.property('orders.buy.@each', 'orders.sell.@each'),
+    }.property('buys.@each', 'sells.@each'),
 
     priceRows: function() {
-        var orders = this.get('orders');
+        var buys = this.get('buys').slice().implicitSort(),
+            sells = this.get('sells').slice().implicitSort();
 
         function collect(array) {
             var ret = [],
@@ -39,10 +45,10 @@
             return ret;
         }
 
-        var buyGroups = collect(orders.buy),
-            sellGroups = collect(orders.sell),
-            ret = [],
-            nullGroup = {count: '', volume: '', price: ''};
+        var buyGroups = collect(buys),
+            sellGroups = collect(sells),
+            nullGroup = {count: '', volume: '', price: ''},
+            ret = [];
 
         for(var i = 0; i < buyGroups.length || i < sellGroups.length; i++) {
             ret.push({
@@ -52,5 +58,5 @@
         }
 
         return ret.slice(0, 10);
-    }.property('orders.buy.@each', 'orders.sell.@each')
+    }.property('buys.@each', 'sells.@each')
 });

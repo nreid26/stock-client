@@ -6,7 +6,7 @@
     </span>
     <br />
     <div class="market_div">
-        <table class="market_table">
+        <table class="market_table" id="exchange">
             <thead>
                 <tr>
                     <td colspan="4"></td>
@@ -28,20 +28,20 @@
             <tbody>
                 {{#each company in filteredView}}
                 {{#link-to "company.market" company.symbol tagName="tr" href=false}}
-            <td>{{company.name}}</td>
-            <td>{{company.symbol}}</td>
-            <td>{{num company.openPrice 2}}</td>
-            <td>{{num company.currentPrice 2}}</td>
-            <td>{{num company.delta.value 2}}</td>
-            <td><img {{bind-attr src=company.delta.image}} /></td>
-            <td>{{num company.delta.percent 2}}</td>
-            <td>{{num company.volume 0}}</td>
-            <td>
-                <input type="button" value="Buy" {{action "transitionOrder" company "buy" bubbles=false }} />
-                <input type="button" value="Sell" {{action "transitionOrder" company "sell" bubbles=false }}>
-            </td>
-            {{/link-to}}
-            {{/each}}
+                    <td>{{company.name}}</td>
+                    <td>{{company.symbol}}</td>
+                    <td>{{num company.openPrice 2}}</td>
+                    <td>{{num company.currentPrice 2}}</td>
+                    <td>{{num company.delta.value 2}}</td>
+                    <td><img {{bind-attr src=company.delta.image}} /></td>
+                    <td>{{num company.delta.percent 2}}</td>
+                    <td>{{num company.volume 0}}</td>
+                    <td>
+                        <input type="button" value="Buy" {{action "transitionOrder" company "buy" bubbles=false }} />
+                        <input type="button" value="Sell" {{action "transitionOrder" company "sell" bubbles=false }}>
+                    </td>
+                {{/link-to}}
+                {{/each}}
             </tbody>
         </table>
     </div>
