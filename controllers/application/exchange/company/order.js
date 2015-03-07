@@ -8,28 +8,37 @@
 
     computeSale: function() {
         var buys = this.get('buyOrders').toArray().sort(SORT.buyPrice),
-            sells = this.get('sellOrders').toArray().sort(SORT.sellPrice);
+            sells = this.get('sellOrders').toArray().sort(SORT.sellPrice),
+            company = this.get('model');
+
         //Evaluate trades
-        for(var i = 0; ; i++) {
-            var buy = buys[i], sell = sells[i]
-            
-            if(buy && sell && buy.get('price') >= sell.get('price')) {
-                var vDiff = Math.min(buy.get('volume'), sell.get('volume'));
-                debugger;
-                this.set('currentPrice', buy.get('price'));
-                this.set('volume', this.get('volume') + vDiff);
-                this.get('model').save().then(function(){
-                    [buy, sell].forEach(function(a) {
-                        a.decrementProperty('volume', vDiff);
-                        if(a.get('volume') == 0) {
-                            console.log('removed this'); 
-                            a.deleteRecord();
-                        }
-                        a.save();
+        buys.forEach(function(buy) { //For buys until true
+            if(buy.get('isDeleted')) { return; }
+
+            sells.forEach(function(sell) { //For sells until true
+                if(sell.get('isDeleted') || buy.get('isDeleted')) { return; }
+
+                if(buy.get('price') >= sell.get('price')) { //If there is a transaction
+                    var vDiff = Math.min(buy.get('volume'), sell.get('volume'));
+
+                    company.set('currentPrice', buy.get('price'));
+                    company.incrementProperty('volume', vDiff);
+
+                    [buy, sell].forEach(function(order) {
+                        if(order.get('volume') <= vDiff) { order.deleteRecord();} 
+                        else { order.decrementProperty('volume', vDiff); }
                     });
-                });
-            }
-        }
+                }
+            });
+        });
+
+        //Persist all changes after computation
+        company.save();
+        [buys, sells].forEach(function(list) {
+            list.forEach(function(item) {
+                if(item.get('isDirty')) { item.save(); } 
+            });
+        });
     },
 
     actions: {
@@ -45,11 +54,9 @@
             var order = this.store.createRecord(type + 'Order', {
                 price: Number(this.get('priceInput.value')),
                 volume: Number(this.get('volumeInput.value')),
-                company:this.get('model')
+                company: this.get('model'),
+                time: Date.now()
             });
-            order.save();
-            this.computeSale();
-            this.store.find(type + 'Order',{company: this.get('symbol')}).then(function(test){console.log('test');console.log(test);});
 
             this.computeSale();
             this.transitionToRoute('/exchange/' + this.get('symbol') + '/market');

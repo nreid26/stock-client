@@ -4,5 +4,11 @@ App.CompanyRoute = Em.Route.extend({
             m = all.filterBy('symbol', params.symbol)[0];
        
         return m || all[0];
+    },
+
+    setupController: function(con, mod) {
+        this._super(con, mod);
+        this.store.find('buyOrder');
+        this.store.find('sellOrder');
     }
 });

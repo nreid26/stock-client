@@ -10,7 +10,6 @@ App.Company = DS.Model.extend({
     symbol: function() { return this.get('id'); }.property('id')
 });
 
-console.log('test');
 App.Company.FIXTURES = [{
         id: 'MSFT',
         name: 'Microsoft Corporation',

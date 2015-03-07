@@ -9,7 +9,9 @@ App.ExchangeController = Em.ArrayController.extend({
 
         if(sign != 0) { ret = ret.filter(function(item) { return sign * item.get(property) > 0; }); }
 
-        ret.sort(function(a, b) { return sign * (a.get(property) - b.get(property)); });
+        ret.sort(function(a, b) {
+            return (sign * (a.get(property) - b.get(property))) || (a.get('symbol').localeCompare(b.get('symbol'))); 
+        });
         return ret;
     }.property('model.@each', 'filter'),
 
