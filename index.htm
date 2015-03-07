@@ -26,14 +26,23 @@
         <!--Application-->
         <link rel="external" id="application" href="templates/application.htm">
         <div>
+            <!--Index-->
+            <script src="routes/application/index.js"></script>
+
             <!--Exchange-->
             <link rel="external" id="exchange" href="templates/application/exchange.htm">
             <script src="routes/application/exchange.js"></script>
             <script src="controllers/application/exchange.js"></script>
             <div>
+                <!--Index-->
+                <script src="routes/application/exchange/index.js"></script>
+
                 <!--Company-->
                 <script src="routes/application/exchange/company.js"></script>
                 <div>
+                    <!--Index-->
+                    <script src="routes/application/exchange/company/index.js"></script>
+
                     <!--Order-->
                     <link rel="external" id="company/order" href="templates/application/exchange/company/order.htm">
                     <script src="routes/application/exchange/company/order.js"></script>
