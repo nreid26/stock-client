@@ -3,7 +3,7 @@
 
     type: 'buy',
     badInput: false,
-    volumeInput: App.ValidatingModel.create({pattern: /^[1-9]\d*$/}),
+    volumeInput: App.ValidatingModel.create({pattern: /^[1-9]\d*$/}), //Models to validate and display data validity
     priceInput:  App.ValidatingModel.create({pattern: /^[1-9]\d*(\.\d{1,2})?$/}),
 
     computeSale: function() {
@@ -58,7 +58,7 @@
                 time: Date.now()
             });
 
-            this.computeSale();
+            this.computeSale(); //Make trades when a new order is placed
             this.transitionToRoute('/exchange/' + this.get('symbol') + '/market');
         }
     }

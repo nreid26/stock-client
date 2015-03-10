@@ -2,7 +2,7 @@
 App.Company = DS.Model.extend({
     name: DS.attr('string'),
     openPrice: DS.attr('number'),
-    currentPrice: DS.attr('number', {defaultValue: 0}),
+    currentPrice: DS.attr('number'),
     volume: DS.attr('number', {defaultValue: 0}),
     logo: DS.attr('string'),
     buyOrders: DS.hasMany('BuyOrder'),
@@ -10,30 +10,35 @@ App.Company = DS.Model.extend({
     symbol: function() { return this.get('id'); }.property('id')
 });
 
-App.Company.FIXTURES = [{
+App.Company.FIXTURES = [{ //Fixture testing data
         id: 'MSFT',
         name: 'Microsoft Corporation',
         openPrice: 42.59,
+        currentPrice: 42.59,
         logo: 'images/microsoft.png',
     }, {
         id: 'APPL',
         name: 'Apple Inc.',
         openPrice: 121.62,
+        currentPrice: 121.62,
         logo: 'images/apple.png',
     }, {
         id: 'FB',
         name: 'Facebook, Inc.',
         openPrice: 74.98,
+        currentPrice: 74.98,
         logo: 'images/facebook.png',
     }, {
         id: 'CSCO',
         name: 'Cisco Systems, Inc.',
         openPrice: 27.41,
+        currentPrice: 27.41,
         logo: 'images/cisco.png',
     }, {
         id: 'INTC', 
         name: 'Intel Corporation',
         openPrice: 0.55,
+        currentPrice: 0.55,
         logo: 'images/intel.png',
     }
 ];

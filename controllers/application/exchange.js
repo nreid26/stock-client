@@ -1,8 +1,8 @@
 App.ExchangeController = Em.ArrayController.extend({
-    itemController: 'ExchangeItem',
-    filter: Em.Object.create({property: 'volume', sign: 0}),
+    itemController: 'ExchangeItem', //Decorate each item with with controlles
+    filter: {property: 'volume', sign: 0}, //Observe this as the filter/sort prperties
 
-    filteredView: function() {
+    filteredView: function() { //Computed array of companies in the correct order
         var property = this.get('filter.property'),
             sign = this.get('filter.sign'),
             ret = this.toArray();
@@ -16,17 +16,17 @@ App.ExchangeController = Em.ArrayController.extend({
     }.property('model.@each', 'filter'),
 
     actions: {
-        filter: function(property, sign) {
-            this.set('filter', Em.Object.create({property: property, sign: sign}));
+        filter: function(property, sign) { //Change the filter when the action is fired
+            this.set('filter', {property: property, sign: sign});
         },   
-        transitionOrder: function(company, type) {
+        transitionOrder: function(company, type) { //Go to the stock buying route
     		this.transitionToRoute('/exchange/' + company.get('symbol') + '/order?type=' + type);
     	}
     }
 });
 
 App.ExchangeItemController = Em.ObjectController.extend({
-    delta: function() {
+    delta: function() { //Calculate the compay deltas/image url
         var open = this.get('openPrice'),
             ret = {value: this.get('currentPrice') - open};
 
@@ -34,5 +34,5 @@ App.ExchangeItemController = Em.ObjectController.extend({
         ret.image = 'images/' + ((ret.value > 0) ? 'up' : ((ret.value < 0) ? 'down' : 'none')) + '.png';
 
         return ret;
-    }.property('currentPrice', 'openPrice'),
+    }.property('currentPrice', 'openPrice')
 });

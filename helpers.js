@@ -1,4 +1,4 @@
-Em.Handlebars.helper('num', function(num, dp) {
+Em.Handlebars.helper('num', function(num, dp) { //Define a helper for decimal places on numbers
     if(!/^-?\d+(\.\d*)?/.test(num)) { return ''; }
 
     num = String(num);

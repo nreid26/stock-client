@@ -11,7 +11,7 @@ App.Router.map(function() {
     this.route('all', {path: '*path'});
 });
 
-App.ValidatingModel = Em.Object.extend({
+App.ValidatingModel = Em.Object.extend({ //Define a validating model (not the best place but...)
     pattern: null,
     value: null,
     isValid: function () { 
